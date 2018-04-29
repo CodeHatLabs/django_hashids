@@ -5,9 +5,9 @@ class DjangoHashidsViewMixin(object):
 
     hidargs = {}
 
-    def decode_hashids(self, kwargs):
+    def decode_hashids(self, hids, kwargs):
         for argkey, argtype in self.hidargs.items():
-            arg = self.request.hid.decode(kwargs[argkey])[0]
+            arg = hids.decode(kwargs[argkey])[0]
             if argtype == 'uuid':
                 arg = UUID(int=arg)
             elif argtype == 'uuidhex':
@@ -17,7 +17,7 @@ class DjangoHashidsViewMixin(object):
             kwargs[argkey] = arg
 
     def dispatch(self, request, *args, **kwargs):
-        self.decode_hashids(kwargs)
+        self.decode_hashids(request.hids, kwargs)
         return super().dispatch(request, *args, **kwargs)
 
 

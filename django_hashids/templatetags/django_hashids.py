@@ -9,6 +9,6 @@ register = template.Library()
 @register.simple_tag(takes_context=True)
 def hashid(context, arg, argtype=None):
     arg = UUID(arg).int if argtype == 'uuid' else int(arg)
-    return context['view'].request.hid.encode(arg)
+    return context['view'].request.hids.encode(arg)
 
 
