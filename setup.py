@@ -14,6 +14,7 @@ setup(
     keywords='python django hashids',
     zip_safe=False,
     install_requires=[
+        'django',
         'hashids'
     ],
     test_suite='',
